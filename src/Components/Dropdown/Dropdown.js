@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useOutsideClick from '../../hooks/useOutsideClick';
+import useOutsideClick from '../../hooks/useOutsideClick/useOutsideClick';
 import { string, bool, arrayOf, shape, number } from 'prop-types';
 import * as S from './styles';
 
