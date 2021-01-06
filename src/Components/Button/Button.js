@@ -1,10 +1,19 @@
-import { string, bool, arrayOf, func, number } from 'prop-types';
+import { stringLength } from '../../utils/stringLength/stringLength';
+import { string, bool, func } from 'prop-types';
 import * as S from './styles';
 
 function Button({ text, isDisabled, className, onAction }) {
-  return <div>
-    <S.Button disabled={isDisabled} className={className} onClick={onAction}>{text.length <= 10 ? text : 'Click'}</S.Button>
-  </div>
+
+  return (
+    <div>
+      <S.Button 
+        disabled={isDisabled}
+        className={className}
+        onClick={onAction}>
+          { stringLength(text, 10, 'Click') }
+      </S.Button>
+    </div>
+  )
 }
 
 export default Button;

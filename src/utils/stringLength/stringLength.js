@@ -1,0 +1,1 @@
+export const stringLength = (str, maxLength, alternateString = 'Alternative') => maxLength >= str.length ? str : alternateString
