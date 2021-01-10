@@ -6,13 +6,14 @@ export default function useFetch(apiUrl) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
     const getData = async (url) => {
       setLoading(true);
       try {
-        const response = await fetch(url);
+        const response = await fetch(url, { signal: abortController.signal });
         const data = await response.json();
         setData(data);
-        
+
         return data;
       } catch(e) {
         setError(e);
@@ -20,11 +21,16 @@ export default function useFetch(apiUrl) {
         return e;
       } finally {
         setLoading(false);
+
         return;
       }
     }
 
     getData(apiUrl);
+
+    return () => {
+      abortController.abort();
+    }
   }, [apiUrl]);
 
 
