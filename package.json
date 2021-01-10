@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^3.4.2",
+    "msw": "^0.25.0",
     "node-sass": "^5.0.0",
     "prop-types": "^15.7.2",
     "react-test-renderer": "^17.0.1",
