@@ -8,7 +8,7 @@ function App() {
   return (
     <S.App>
       App
-      <SearchBox placeholder="Type your dara" data={dropDownOptions}/>
+      <SearchBox placeholder="Type your dara" />
       {/*<Dropdown options={dropDownOptions} initialValue="Cars"/>*/}
     </S.App>
   );
