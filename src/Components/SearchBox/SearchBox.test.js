@@ -1,83 +1,75 @@
-import SearchBox from "./SearchBox";
-import {render, screen, fireEvent} from "@testing-library/react";
-import userEvent from '@testing-library/user-event';
-import Button from "../Button/Button";
-
-const LIST_OF_CARS = [
-  {
-    name: 'Bmw',
-    id: 1,
-  },
-  {
-    name: 'Mercedes',
-    id: 2,
-  },
-  {
-    name: "Audi",
-    id: 3,
-  },
-  {
-    name: "Nissan",
-    id: 4,
-  },
-  {
-    name: "Nitro",
-    id: 5,
-  }
-]
+import SearchBox, { LIST_OF_CARS } from "./SearchBox";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 const defaultProps = {
-  placeholder: 'Your value...',
-}
+  placeholder: "Your value...",
+};
 
 const renderSearchBox = (props = {}) => {
-  const utils = render(<SearchBox {...props}/>);
-  const inputElement = utils.getByLabelText('search-input');
-  const propositionsList = utils.queryByTestId('prop-list');
+  const utils = render(<SearchBox {...props} />);
+  const inputElement = utils.getByLabelText("search-input");
+  const propositionsList = utils.queryByTestId("prop-list");
 
   return { ...utils, inputElement, propositionsList };
-}
+};
 
-describe('SearchBox', () => {
-
-  it('should render input', () => {
+describe("SearchBox", () => {
+  it("should render input", () => {
     const { inputElement, rerender } = renderSearchBox();
     expect(inputElement.placeholder).toMatch(defaultProps.placeholder);
     expect(inputElement).toBeInTheDocument();
 
-    rerender(<SearchBox placeholder={'foo'}/>);
+    rerender(<SearchBox placeholder={"foo"} />);
 
-    expect(inputElement.placeholder).toMatch('foo');
+    expect(inputElement.placeholder).toMatch("foo");
   });
 
-  it('should not display propositions list', () => {
+  it("should not display propositions list", () => {
     const { propositionsList } = renderSearchBox();
     expect(propositionsList).toBeNull();
   });
 
-  it('shoudl render propositions list', async () => {
-    const { propositionsList, inputElement } = renderSearchBox();
+  it("shoudl render propositions list", async () => {
+    const { inputElement } = renderSearchBox();
     inputElement.focus();
-    const propElList = await screen.findByTestId('prop-list');
+    const propElList = await screen.findByTestId("prop-list");
 
     expect(propElList).toBeVisible();
     expect(propElList).toBeInTheDocument();
   });
 
-  it('should filter data while typying', async () => {
-    const { inputElement, propositionsList, getByPlaceholderText } = renderSearchBox({data: LIST_OF_CARS});
+  it("should filter data while typying", async () => {
+    const { inputElement } = renderSearchBox({ data: LIST_OF_CARS });
     inputElement.focus();
-    const propElList = await screen.findByTestId('prop-list');
-    console.log(inputElement.value, inputElement.value.length);
+    const propElList = await screen.findByTestId("prop-list");
 
-
-    userEvent.type(inputElement, 'm');
+    userEvent.type(inputElement, "m");
     expect(propElList).toBeVisible();
-    expect(inputElement).toHaveValue('m');
+    expect(inputElement).toHaveValue("m");
 
-    userEvent.type(inputElement, '{backspace}')
-    expect(inputElement).toHaveValue('');
-
+    userEvent.type(inputElement, "{backspace}");
+    expect(inputElement).toHaveValue("");
   });
 
+  it("should display properly value on typing", async () => {
+    const { inputElement } = renderSearchBox({
+      data: LIST_OF_CARS,
+    });
+    inputElement.focus();
+    const propElList = await screen.findByTestId("prop-list");
+    const propItem0 = await screen.findByTestId("prop-item1");
+
+    userEvent.type(inputElement, "n");
+    const propItem1 = await screen.findByTestId("prop-item4");
+    const propItem2 = await screen.findByTestId("prop-item5");
+
+    expect(propElList).not.toContainElement(propItem0);
+    expect(propElList).toContainElement(propItem1);
+    expect(propElList).toContainElement(propItem2);
+
+    userEvent.type(inputElement, "is");
+    expect(propElList).toContainElement(propItem1);
+    expect(propElList).not.toContainElement(propItem2);
+  });
 });
