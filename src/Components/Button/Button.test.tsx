@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Button from './Button';
+import Button, { Props } from './Button';
 
-const renderButton = (props) => {
+const renderButton = (props?: Props) => {
   const utils = render(<Button {...props}/>);
   const buttonElement = utils.getByRole('button');
   

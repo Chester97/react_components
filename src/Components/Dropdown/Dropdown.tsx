@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import useOutsideClick from '../../hooks/useOutsideClick/useOutsideClick';
-import { string, bool, arrayOf, shape, number } from 'prop-types';
 import * as S from './styles';
 
-function Dropdown({ dropDirection, onHover, initialValue, options }) {
+export type OptionsProps = {
+  id: number,
+  name: string,
+}
+
+export type Props = {
+  dropDirection?: any,
+  onHover?: boolean,
+  initialValue?: string,
+  options: Array<OptionsProps>
+}
+
+const Dropdown: React.FC<Props> = ({ dropDirection = 'top', onHover = false, initialValue = 'Select Element', options }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState(initialValue);
   
   const hideVisibility = () => setIsVisible(false);
   const changeVisibilityState = () => setIsVisible(!isVisible);
-  const changeSelectedValue = (name) => {
+  const changeSelectedValue = (name: string): void => {
     setSelectedValue(name);
     changeVisibilityState();
   }
@@ -31,19 +42,3 @@ function Dropdown({ dropDirection, onHover, initialValue, options }) {
 }
 
 export default Dropdown;
-
-Dropdown.propTypes = {
-  options: arrayOf(shape({
-    id: number,
-    name: string
-  })).isRequired,
-  dropDirection: string,
-  onHover: bool,
-  initialValue: string,
-}
-
-Dropdown.defaultProps = {
-  dropDirection: 'top',
-  onHover: false,
-  initialValue: 'Dropdown Element'
-}

@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Dropdown from './Dropdown';
+import Dropdown, { Props, OptionsProps } from './Dropdown';
 
-const dropdownOption = [{name: "BMW", id: 0}, {name: "Audi", id: 1}, {name: "Mercedes", id: 2}];
+const dropdownOption: Array<OptionsProps> = [{name: "BMW", id: 0}, {name: "Audi", id: 1}, {name: "Mercedes", id: 2}];
 
 
-const renderDropdown = (props) => {
+const renderDropdown = (props?: Partial<Props>) => {
   const utils = render(<Dropdown options={dropdownOption} {...props} />);
   const buttonElement = utils.getByRole('button');
   const list = utils.queryByTestId('list');
@@ -49,7 +49,7 @@ describe('Dropdown Component', () => {
   });
 
   test('should display list on hover when props are passed', () => {
-    const { buttonElement, list } = renderDropdown({onHover: true});
+    const { buttonElement, list } = renderDropdown({ onHover: true });
 
     userEvent.hover(buttonElement);
     expect(list).toBeVisible();
