@@ -8,22 +8,27 @@ const defaultProps = {
 
 const renderSearchBox = (props = {}) => {
   const utils = render(<SearchBox {...props} />);
-  const inputElement = utils.getByLabelText("search-input");
+  const inputElement = utils.getByLabelText("search-input") as HTMLInputElement;
   const propositionsList = utils.queryByTestId("prop-list");
 
   return { ...utils, inputElement, propositionsList };
 };
 
-describe("SearchBox", () => {
-  it("should render input", () => {
-    const { inputElement, rerender } = renderSearchBox();
-    expect(inputElement.placeholder).toMatch(defaultProps.placeholder);
+describe("SearchBox",  () => {
+  it("should render input",  () => {
+    const { inputElement } = renderSearchBox();
+    const inputPlaceholder = inputElement.placeholder;
+
+    expect(inputPlaceholder).toMatch(defaultProps.placeholder);
     expect(inputElement).toBeInTheDocument();
-
-    rerender(<SearchBox placeholder={"foo"} />);
-
-    expect(inputElement.placeholder).toMatch("foo");
   });
+
+  it('should render input with placeholder', () => {
+    const { inputElement } = renderSearchBox({placeholder: 'foo'});
+    const inputPlaceholder = inputElement.placeholder;
+
+    expect(inputPlaceholder).toMatch("foo");
+  })
 
   it("should not display propositions list", () => {
     const { propositionsList } = renderSearchBox();
