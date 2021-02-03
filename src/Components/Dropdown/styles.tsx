@@ -1,5 +1,10 @@
 import styled, { keyframes }  from 'styled-components';
 
+type Props = {
+  isVisible: boolean,
+  dropDirection: boolean,
+}
+
 const aVisibility = keyframes`
   from {
     opacity: 0;
@@ -27,7 +32,7 @@ export const Button = styled.button`
   width: 100%;
 `;
 
-export const List = styled.ul`
+export const List = styled.ul<Props>`
   
   position: absolute;
   display: ${({ isVisible }) => isVisible ? 'block' : 'none'};

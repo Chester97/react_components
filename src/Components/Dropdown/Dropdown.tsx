@@ -29,7 +29,7 @@ const Dropdown: React.FC<Props> = ({ dropDirection = 'top', onHover = false, ini
   
   return (
     <S.Container>
-      <S.Wrapper ref={refElement} onMouseEnter={onHover ? changeVisibilityState : null} onMouseLeave={onHover ? changeVisibilityState : null}> 
+      <S.Wrapper ref={refElement} onMouseEnter={onHover ? changeVisibilityState : null} onMouseLeave={onHover ? changeVisibilityState : null}>
       <S.Button onClick={changeVisibilityState}>{selectedValue}</S.Button>
         <S.List data-testid="list" isVisible={isVisible} dropDirection={dropDirection}>
           {
