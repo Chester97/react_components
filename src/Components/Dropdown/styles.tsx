@@ -1,8 +1,9 @@
 import styled, { keyframes }  from 'styled-components';
+import {ReactElement} from "react";
 
 type Props = {
   isVisible: boolean,
-  dropDirection: boolean,
+  dropDirection: string,
 }
 
 const aVisibility = keyframes`
@@ -21,7 +22,7 @@ export const Container = styled.div`
   justify-content: center;
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper: any = styled.div`
   display: inline-block;
   width: 200px;
   margin: 0 auto;
