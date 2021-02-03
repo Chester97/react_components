@@ -10,8 +10,8 @@ const App: React.FC = (): JSX.Element => {
   return (
     <S.App>
       App
-      <SearchBox placeholder="Pick Your Car!" />
-      {/*<Dropdown options={dropdownOptions} initialValue="Choose Car"/>*/}
+      {/*<SearchBox placeholder="Pick Your Car!" />*/}
+      <Dropdown options={dropdownOptions} initialValue="Choose Car"/>
       {/*<Button isDisabled={false} text="Klik" onAction={() => alert("HEJKA")}/>*/}
     </S.App>
   );

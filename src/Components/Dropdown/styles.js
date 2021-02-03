@@ -27,7 +27,8 @@ export const Button = styled.button`
   width: 100%;
 `;
 
-export const List = styled.div`
+export const List = styled.ul`
+  
   position: absolute;
   display: ${({ isVisible }) => isVisible ? 'block' : 'none'};
   top: ${({dropDirection}) => dropDirection !== 'bottom' ? '100%' : 'auto'};
@@ -37,7 +38,7 @@ export const List = styled.div`
   z-index: 1;
 `;
 
-export const Element = styled.a`
+export const Element = styled.li`
   padding: 10px 20px;
   text-align: center;
   display: block;

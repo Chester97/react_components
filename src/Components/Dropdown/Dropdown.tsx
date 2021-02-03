@@ -33,7 +33,7 @@ const Dropdown: React.FC<Props> = ({ dropDirection = 'top', onHover = false, ini
       <S.Button onClick={changeVisibilityState}>{selectedValue}</S.Button>
         <S.List data-testid="list" isVisible={isVisible} dropDirection={dropDirection}>
           {
-            options && options.map(({name, id}) => <S.Element key={name} data-testid="option" onClick={() => changeSelectedValue(name)}>{name}</S.Element>)
+            options && options.map(({name}) => <S.Element key={name} data-testid="option" onClick={() => changeSelectedValue(name)}>{name}</S.Element>)
           }
         </S.List>
       </S.Wrapper>
